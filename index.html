@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudipta Debnath - Embedded Systems Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #3b6fb0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #1a2b4c;
+            opacity: 0.3;
+        }
+
+        .pcb-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.4;
+        }
+
+        .pcb-trace {
+            position: absolute;
+            background: #00ff88;
+            border-radius: 1px;
+            box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
+        }
+
+        .pcb-trace-horizontal {
+            height: 2px;
+            width: 100px;
+        }
+
+        .pcb-trace-vertical {
+            width: 2px;
+            height: 100px;
+        }
+
+        .pcb-component {
+            position: absolute;
+            background: #2d4a6b;
+            border: 1px solid #4a7ba7;
+            border-radius: 2px;
+        }
+
+        .pcb-via {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #c0a040;
+            border-radius: 50%;
+            border: 1px solid #e6c060;
+            box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+        }
+
+        .current-flow {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #00ffff 0%, #0088ff 70%, transparent 100%);
+            border-radius: 50%;
+            animation: flow-current 3s linear infinite;
+            box-shadow: 0 0 8px #00ffff;
+        }
+
+        @keyframes flow-current {
+            0% { transform: translateX(0) scale(1); opacity: 1; }
+            50% { transform: translateX(200px) scale(1.2); opacity: 0.8; }
+            100% { transform: translateX(400px) scale(0.8); opacity: 0; }
+        }
+
+        .current-flow.vertical {
+            animation: flow-current-vertical 2.5s linear infinite;
+        }
+
+        @keyframes flow-current-vertical {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(150px) scale(1.2); opacity: 0.8; }
+            100% { transform: translateY(300px) scale(0.8); opacity: 0; }
+        }
+
+        .current-flow.diagonal {
+            animation: flow-current-diagonal 4s linear infinite;
+        }
+
+        @keyframes flow-current-diagonal {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            50% { transform: translate(250px, 150px) scale(1.2); opacity: 0.8; }
+            100% { transform: translate(500px, 300px) scale(0.8); opacity: 0; }
+        }
+
+        .pcb-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: slideUp 1s ease forwards 0.5s;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: slideUp 1s ease forwards 1s;
+        }
+
+        .hero .degree {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            color: #b8d4f0;
+            animation: slideUp 1s ease forwards 1.3s;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: slideUp 1s ease forwards 1.7s;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button:hover {
+            background: white;
+            color: #1e3c72;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav.visible {
+            transform: translateY(0);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: #1e3c72;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #1e3c72;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .profile-section {
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            margin: 0 auto 2rem;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-img::before {
+            content: '⚡';
+            position: absolute;
+            font-size: 4rem;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-text h3 {
+            color: #1e3c72;
+            margin: 1.5rem 0 0.5rem 0;
+            font-size: 1.3rem;
+        }
+
+        .about-text ul {
+            margin: 0.5rem 0 1rem 1.5rem;
+        }
+
+        .about-text li {
+            margin-bottom: 0.3rem;
+            color: #555;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #1e3c72;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .skill-category h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #e8f2ff 0%, #f0f8ff 100%);
+            color: #1e3c72;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid #d0e4ff;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #1e3c72, #2a5298);
+        }
+
+        .experience-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            margin-left: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 2rem;
+            width: 12px;
+            height: 12px;
+            background: #1e3c72;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #1e3c72;
+        }
+
+        .experience-item h3 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-item .company {
+            font-weight: 600;
+            color: #2a5298;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-item .duration {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        /* Interests Section */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .interest-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border-top: 4px solid transparent;
+        }
+
+        .interest-card:nth-child(1) { border-top-color: #ff6b6b; }
+        .interest-card:nth-child(2) { border-top-color: #4ecdc4; }
+        .interest-card:nth-child(3) { border-top-color: #45b7d1; }
+
+        .interest-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .interest-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .interest-card h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #1e3c72;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e8f2ff;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1e3c72;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(30, 60, 114, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .experience-timeline {
+                padding-left: 1rem;
+            }
+
+            .experience-item {
+                margin-left: 1rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#interests">Interests</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="pcb-container">
+            <div class="pcb-grid"></div>
+            
+            <!-- PCB Traces -->
+            <div class="pcb-trace pcb-trace-horizontal" style="top: 15%; left: 10%;"></div>
+            <div class="pcb-trace pcb-trace-horizontal" style="top: 25%; left: 25%;"></div>
+            <div class="pcb-trace pcb-trace-horizontal" style="top: 35%; left: 5%;"></div>
+            <div class="pcb-trace pcb-trace-horizontal" style="top: 45%; left: 30%;"></div>
+            <div class="pcb-trace pcb-trace-horizontal" style="top: 55%; left: 15%;"></div>
+            <div class="pcb-trace pcb-trace-horizontal" style="top: 65%; left: 35%;"></div>
+            <div class="pcb-trace pcb-trace-horizontal" style="top: 75%; left: 10%;"></div>
+            <div class="pcb-trace pcb-trace-horizontal" style="top: 85%; left: 20%;"></div>
+            
+            <div class="pcb-trace pcb-trace-vertical" style="top: 10%; left: 20%;"></div>
+            <div class="pcb-trace pcb-trace-vertical" style="top: 20%; left: 40%;"></div>
+            <div class="pcb-trace pcb-trace-vertical" style="top: 30%; left: 60%;"></div>
+            <div class="pcb-trace pcb-trace-vertical" style="top: 40%; left: 15%;"></div>
+            <div class="pcb-trace pcb-trace-vertical" style="top: 50%; left: 45%;"></div>
+            <div class="pcb-trace pcb-trace-vertical" style="top: 60%; left: 25%;"></div>
+            <div class="pcb-trace pcb-trace-vertical" style="top: 70%; left: 50%;"></div>
+            
+            <!-- PCB Components -->
+            <div class="pcb-component" style="top: 20%; left: 15%; width: 30px; height: 15px;"></div>
+            <div class="pcb-component" style="top: 30%; left: 35%; width: 20px; height: 20px;"></div>
+            <div class="pcb-component" style="top: 50%; left: 25%; width: 40px; height: 20px;"></div>
+            <div class="pcb-component" style="top: 60%; left: 45%; width: 25px; height: 25px;"></div>
+            <div class="pcb-component" style="top: 70%; left: 20%; width: 35px; height: 15px;"></div>
+            <div class="pcb-component" style="top: 40%; left: 55%; width: 20px; height: 30px;"></div>
+            
+            <!-- PCB Vias -->
+            <div class="pcb-via" style="top: 18%; left: 22%;"></div>
+            <div class="pcb-via" style="top: 28%; left: 42%;"></div>
+            <div class="pcb-via" style="top: 38%; left: 18%;"></div>
+            <div class="pcb-via" style="top: 48%; left: 38%;"></div>
+            <div class="pcb-via" style="top: 58%; left: 28%;"></div>
+            <div class="pcb-via" style="top: 68%; left: 48%;"></div>
+            <div class="pcb-via" style="top: 78%; left: 18%;"></div>
+            
+            <!-- Current Flow Animations -->
+            <div class="current-flow" style="top: 14%; left: 10%; animation-delay: 0s;"></div>
+            <div class="current-flow" style="top: 24%; left: 25%; animation-delay: 0.5s;"></div>
+            <div class="current-flow" style="top: 34%; left: 5%; animation-delay: 1s;"></div>
+            <div class="current-flow" style="top: 44%; left: 30%; animation-delay: 1.5s;"></div>
+            <div class="current-flow" style="top: 54%; left: 15%; animation-delay: 2s;"></div>
+            <div class="current-flow" style="top: 64%; left: 35%; animation-delay: 2.5s;"></div>
+            
+            <div class="current-flow vertical" style="top: 10%; left: 19%; animation-delay: 0.3s;"></div>
+            <div class="current-flow vertical" style="top: 20%; left: 39%; animation-delay: 0.8s;"></div>
+            <div class="current-flow vertical" style="top: 30%; left: 59%; animation-delay: 1.3s;"></div>
+            <div class="current-flow vertical" style="top: 40%; left: 14%; animation-delay: 1.8s;"></div>
+            <div class="current-flow vertical" style="top: 50%; left: 44%; animation-delay: 2.3s;"></div>
+            
+            <div class="current-flow diagonal" style="top: 15%; left: 50%; animation-delay: 0.7s;"></div>
+            <div class="current-flow diagonal" style="top: 35%; left: 60%; animation-delay: 1.7s;"></div>
+            <div class="current-flow diagonal" style="top: 55%; left: 70%; animation-delay: 2.7s;"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Sudipta Debnath</h1>
+            <p class="subtitle">Embedded Systems Engineer</p>
+            <p class="degree">M.Tech Student at IISc Bangalore</p>
+            <a href="#about" class="cta-button">Explore My Journey</a>
+        </div>
+    </section>
+
+    <section id="about" class="fade-in">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="profile-section">
+                <div class="profile-img"></div>
+                <h3>Electrical Engineer</h3>
+                <p>Passionate about embedded systems and analog/digital design</p>
+            </div>
+            <div class="about-text">
+                <p>Hello, I'm <strong>Sudipta Debnath</strong>. I completed my B.Tech in Electrical Engineering from <strong>IIEST, Shibpur</strong> in 2023. After graduation, I worked as a <strong>Management Trainee at CESC Ltd., Kolkata</strong> from 2023 to 2024.</p>
+                
+                <p>Currently, I'm pursuing my <strong>M.Tech in Embedded Systems Engineering</strong> from <strong>IISc Bangalore</strong>, where I'm deepening my knowledge in cutting-edge embedded technologies and system design.</p>
+                
+                <p>My passion lies in bridging the gap between theoretical knowledge and practical implementation, creating innovative solutions that make technology more accessible and efficient.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="fade-in">
+        <h2 class="section-title">Experience & Education</h2>
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <h3>M.Tech in Embedded Systems Engineering</h3>
+                <div class="company">Indian Institute of Science (IISc), Bangalore</div>
+                <div class="duration">2024 - Present</div>
+                <p>Pursuing advanced studies in embedded systems design, focusing on cutting-edge technologies and research in the field of embedded computing and IoT systems.</p>
+            </div>
+            <div class="experience-item">
+                <h3>Management Trainee</h3>
+                <div class="company">CESC Ltd., Kolkata</div>
+                <div class="duration">2023 - 2024</div>
+                <p>Worked in power distribution and management, gaining hands-on experience with electrical systems, power electronics, and utility management operations.</p>
+            </div>
+            <div class="experience-item">
+                <h3>B.Tech in Electrical Engineering</h3>
+                <div class="company">IIEST, Shibpur</div>
+                <div class="duration">2019 - 2023</div>
+                <p>Graduated with comprehensive knowledge in electrical engineering fundamentals, power systems, control systems, and embedded programming.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="fade-in">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-container">
+            <div class="skill-category">
+                <h3>💻 Programming Languages</h3>
+                <div class="skill-list">
+                    <span class="skill-tag">C</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Embedded C</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>🔧 Hardware Description Languages</h3>
+                <div class="skill-list">
+                    <span class="skill-tag">Verilog</span>
+                    <span class="skill-tag">VHDL</span>
+                    <span class="skill-tag">SystemVerilog (Basic)</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>🛠️ Design Tools & Software</h3>
+                <div class="skill-list">
+                    <span class="skill-tag">Cadence Virtuoso</span>
+                    <span class="skill-tag">ModelSim</span>
+                    <span class="skill-tag">Xilinx Vivado</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>🔌 Microcontrollers & Platforms</h3>
+                <div class="skill-list">
+                    <span class="skill-tag">Tiva C</span>
+                    <span class="skill-tag">STM32</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>📡 Communication Protocols</h3>
+                <div class="skill-list">
+                    <span class="skill-tag">UART</span>
+                    <span class="skill-tag">SPI</span>
+                    <span class="skill-tag">I2C</span>
+                    <span class="skill-tag">ADC</span>
+                    <span class="skill-tag">PWM</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="interests" class="fade-in">
+        <h2 class="section-title">Areas of Interest</h2>
+        <div class="interests-grid">
+            <div class="interest-card">
+                <div class="interest-icon">🔗</div>
+                <h3>Analog Design</h3>
+                <p>Designing and optimizing analog circuits, operational amplifiers, and mixed-signal systems for various applications.</p>
+            </div>
+            <div class="interest-card">
+                <div class="interest-icon">💾</div>
+                <h3>Digital Design</h3>
+                <p>Creating efficient digital systems, FPGA implementations, and digital signal processing solutions.</p>
+            </div>
+            <div class="interest-card">
+                <div class="interest-icon">⚡</div>
+                <h3>Power Electronics</h3>
+                <p>Developing power conversion systems, motor drives, and energy-efficient power management solutions.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="fade-in">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Let's Connect</h3>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <div>
+                        <strong>Location</strong><br>
+                        IISc Bangalore, Karnataka
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span>🎓</span>
+                    <div>
+                        <strong>Current Status</strong><br>
+                        M.Tech Student - Embedded Systems
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span>💼</span>
+                    <div>
+                        <strong>Interests</strong><br>
+                        Embedded Systems, Analog Design, Power Electronics
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Sudipta Debnath. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('visible');
+            } else {
+                navbar.classList.remove('visible');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+            
+            if (name && email && subject && message) {
+                const submitBtn = this.querySelector('.submit-btn');
+                const originalText = submitBtn.textContent;
+                
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    alert(`Thank you, ${name}! Your message about "${subject}" has been sent. I'll get back to you soon.`);
+                    this.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 1500);
+            }
+        });
+
+        // Interactive hover effects
+        document.querySelectorAll('.skill-category, .interest-card, .experience-item').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = this.style.transform || 'translateY(0)';
+            });
+        });
+
+        // Typing effect for hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.textContent = '';
+            element.style.opacity = '1';
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect
+        setTimeout(() => {
+            const heroTitle = document.querySelector('.hero h1');
+            typeWriter(heroTitle, 'Sudipta Debnath', 120);
+        }, 1000);
+
+        // Add more dynamic PCB animations
+        function createRandomCurrentFlow() {
+            const pcbContainer = document.querySelector('.pcb-container');
+            if (!pcbContainer) return;
+            
+            const currentDot = document.createElement('div');
+            currentDot.className = 'current-flow';
+            
+            // Random starting position
+            const startX = Math.random() * 80 + 10; // 10% to 90% from left
+            const startY = Math.random() * 80 + 10; // 10% to 90% from top
+            
+            currentDot.style.left = startX + '%';
+            currentDot.style.top = startY + '%';
+            currentDot.style.animationDelay = '0s';
+            
+            // Random direction
+            const directions = ['', 'vertical', 'diagonal'];
+            const randomDirection = directions[Math.floor(Math.random() * directions.length)];
+            if (randomDirection) {
+                currentDot.classList.add(randomDirection);
+            }
+            
+            pcbContainer.appendChild(currentDot);
+            
+            // Remove after animation completes
+            setTimeout(() => {
+                if (currentDot.parentNode) {
+                    currentDot.parentNode.removeChild(currentDot);
+                }
+            }, 4000);
+        }
+
+        // Create random current flows periodically
+        setInterval(createRandomCurrentFlow, 2000);
+
+        // Add pulsing effect to PCB components
+        function addComponentPulse() {
+            const components = document.querySelectorAll('.pcb-component');
+            components.forEach((component, index) => {
+                setTimeout(() => {
+                    component.style.animation = 'pulse 2s ease-in-out infinite';
+                }, index * 300);
+            });
+        }
+
+        // Add pulse keyframe
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { 
+                    box-shadow: 0 0 5px rgba(74, 123, 167, 0.5);
+                    border-color: #4a7ba7;
+                }
+                50% { 
+                    box-shadow: 0 0 15px rgba(74, 123, 167, 0.8), 0 0 25px rgba(74, 123, 167, 0.6);
+                    border-color: #6699cc;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize component pulse effect
+        setTimeout(addComponentPulse, 2000);
+    </script>
+</body>
+</html>
